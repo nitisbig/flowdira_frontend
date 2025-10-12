@@ -2,18 +2,24 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { ChatContext } from '@/hooks/userInputContext'
+
 
 const ChatBox = () => {
+    const context = useContext(ChatContext)
+    const {chat, setChat} = context
     const [inputText, setInputText] = useState('')
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         // Add your chat submission logic here
+        
         if (inputText.trim()) {
             console.log('Sending message:', inputText)
-            setInputText('') // Clear the input after sending
+            setChat(inputText)
         }
+        alert(chat)
     }
 
     return (
