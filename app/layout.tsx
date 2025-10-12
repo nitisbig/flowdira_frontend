@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Core_Nav from "@/components/core_nav";
+import Core_Nav from "@/components/coreNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +28,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className=" font-bold text-4xl text-center">Flowdira</div>
-        <Core_Nav />
+        <div className=" font-bold text-4xl text-center opacity-70">Flowdira</div>
+        <div className="flex justify-center mt-6">
+          <Core_Nav />
+        </div>
         {children}
       </body>
     </html>
