@@ -8,19 +8,19 @@ import { ChatContext } from '@/hooks/userInputContext'
 
 const ChatBox = () => {
     const context = useContext(ChatContext)
+    if (!context) {
+        throw new Error('ChatBox must be used within a ChatWrapper')
+    }
     const {chat, setChat} = context
     const [inputText, setInputText] = useState('')
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        // Add your chat submission logic here
-        
         if (inputText.trim()) {
-            console.log('Sending message:', inputText)
             setChat(inputText)
-        }
-        alert(chat)
+        }      
     }
+
 
     return (
         <div className="flex flex-col w-full max-w-4xl mx-auto p-4">
@@ -34,9 +34,9 @@ const ChatBox = () => {
                 />
                 <button
                     type="submit"
-                    className="bg-blue-600 text-white rounded-lg px-4 py-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="bg-gray-900 text-white rounded-lg px-4 py-2 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    Enter
+                    Ask
                 </button>
             </form>
         </div>
