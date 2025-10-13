@@ -1,7 +1,7 @@
-
 'use client'
 import { useContext } from "react"
 import { ChatContext } from "@/hooks/userInputContext"
+import MarkDownText from "@/utils/chatMarkdown"
 
 const ChatWindow = ()=>{
     const context = useContext(ChatContext)
@@ -28,7 +28,8 @@ const ChatWindow = ()=>{
                         You: <span className="font-normal">{chatItem.humanMessage}</span>
                     </div>
                     <div className="font-semibold text-blue-700 mt-2">
-                        AI: <span className="font-normal">{chatItem.aiMessage}</span>
+                        AI: 
+                        <MarkDownText message={chatItem.aiMessage} />
                     </div>
                     <div className="text-xs text-gray-500 mt-1">
                         {chatItem.date.toLocaleString()}
