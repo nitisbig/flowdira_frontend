@@ -4,23 +4,23 @@
 
 import { useState, useContext } from 'react'
 import { ChatContext } from '@/hooks/userInputContext'
-
+import axios from 'axios'
 
 const ChatBox = () => {
     const context = useContext(ChatContext)
     if (!context) {
         throw new Error('ChatBox must be used within a ChatWrapper')
     }
-    const {chat, setChat} = context
+    const { addChat } = context
     const [inputText, setInputText] = useState('')
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         if (inputText.trim()) {
-            setChat(inputText)
+            axios.post('http://127.0.0.1:8000/api/v1', {'user_input': inputText}) .then((res)=>addChat(inputText, res.data.gen_text))
+            setInputText('');
         }      
     }
-
 
     return (
         <div className="flex flex-col w-full max-w-4xl mx-auto p-4">

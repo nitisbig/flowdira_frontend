@@ -1,16 +1,17 @@
+
 'use client'
 import { useContext } from "react"
 import { ChatContext } from "@/hooks/userInputContext"
 
 const ChatWindow = ()=>{
     const context = useContext(ChatContext)
-        if (!context) {
+    if (!context) {
         throw new Error('ChatWindow must be used within a ChatWrapper')
     }
-    const {chat} = context
+    const { chatList } = context
 
-    // Show the title if chat is empty (null or empty string)
-    if (!chat || chat.trim() === '') {
+    // Show the title if chat list is empty
+    if (chatList.length === 0) {
         return (
             <div className="flex-grow flex items-center justify-center">
                 <h1 className="text-4xl font-bold text-center opacity-30">Flowdira works 24/7</h1>
@@ -18,11 +19,22 @@ const ChatWindow = ()=>{
         )
     }
 
-    // Otherwise show the chat content
+    // Otherwise show the list of chat messages
     return(
-        <div className="p-4">
-            <div>User: {chat}</div>
-            <div>AI: i am thinking about {chat}</div>
+        <div className="p-4 space-y-4 max-h-[70vh] overflow-y-auto">
+            {chatList.map((chatItem) => (
+                <div key={chatItem.chatId} className="border-b pb-4">
+                    <div className="font-semibold text-gray-700">
+                        You: <span className="font-normal">{chatItem.humanMessage}</span>
+                    </div>
+                    <div className="font-semibold text-blue-700 mt-2">
+                        AI: <span className="font-normal">{chatItem.aiMessage}</span>
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">
+                        {chatItem.date.toLocaleString()}
+                    </div>
+                </div>
+            ))}
         </div>
     )
 }
